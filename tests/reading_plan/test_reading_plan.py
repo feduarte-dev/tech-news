@@ -4,6 +4,14 @@ from tech_news.analyzer.reading_plan import (
 import pytest
 
 
+@pytest.fixture(scope="function")
+def mock(mocker):
+    mock_obj = mocker.patch(
+        "tech_news.analyzer.reading_plan.ReadingPlanService._db_news_proxy"
+    )
+    yield mock_obj
+
+
 def test_reading_plan_group_news(mock):
     reading_plan = ReadingPlanService()
     with pytest.raises(ValueError) as result:
